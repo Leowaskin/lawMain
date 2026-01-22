@@ -1300,6 +1300,8 @@
             -webkit-overflow-scrolling: touch;
             scrollbar-width: thin;
             scrollbar-color: var(--secondary) rgba(0, 0, 0, 0.05);
+            scroll-snap-type: x mandatory;
+            /* Enable scroll snap */
         }
 
         /* Custom Scrollbar for Thought Leadership */
@@ -1328,6 +1330,8 @@
             object-fit: contain;
             background: #fff;
             cursor: pointer;
+            scroll-snap-align: start;
+            /* Snap to start */
         }
 
         .thought-leadership-grid img:hover {
@@ -2844,12 +2848,28 @@
         // Generic Gallery Scroll
         function scrollGallery(elementId, direction) {
             const gallery = document.getElementById(elementId);
-            const scrollAmount = 300; // Adjust as needed
             if (gallery) {
-                if (direction === 'left') {
-                    gallery.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+                // Determine scroll amount: use width of first item if available + gap, or fallback to container width
+                const firstItem = gallery.querySelector('img');
+                const gap = 20; // assumed gap from CSS
+                let scrollAmount = 300;
+
+                if (firstItem) {
+                    scrollAmount = firstItem.clientWidth + gap;
                 } else {
-                    gallery.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+                    scrollAmount = gallery.clientWidth;
+                }
+
+                if (direction === 'left') {
+                    gallery.scrollBy({
+                        left: -scrollAmount,
+                        behavior: 'smooth'
+                    });
+                } else {
+                    gallery.scrollBy({
+                        left: scrollAmount,
+                        behavior: 'smooth'
+                    });
                 }
             }
         }
