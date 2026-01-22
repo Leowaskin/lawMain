@@ -1038,7 +1038,8 @@
             }
 
             .about-carousel-wrapper .scroll-btn,
-            .thought-leadership-section .scroll-btn {
+            .thought-leadership-section .scroll-btn,
+            .testimonials-wrapper .scroll-btn {
                 position: absolute;
                 top: 50%;
                 transform: translateY(-50%);
@@ -1058,19 +1059,24 @@
             .about-carousel-wrapper .scroll-btn:focus,
             .thought-leadership-section .scroll-btn:hover,
             .thought-leadership-section .scroll-btn:active,
-            .thought-leadership-section .scroll-btn:focus {
+            .thought-leadership-section .scroll-btn:focus,
+            .testimonials-wrapper .scroll-btn:hover,
+            .testimonials-wrapper .scroll-btn:active,
+            .testimonials-wrapper .scroll-btn:focus {
                 transform: translateY(-50%) scale(1.1);
                 /* PRESERVE positioning */
                 background: #ffffff;
             }
 
             .about-carousel-wrapper .left-btn,
-            .thought-leadership-section .left-btn {
+            .thought-leadership-section .left-btn,
+            .testimonials-wrapper .left-btn {
                 left: 10px;
             }
 
             .about-carousel-wrapper .right-btn,
-            .thought-leadership-section .right-btn {
+            .thought-leadership-section .right-btn,
+            .testimonials-wrapper .right-btn {
                 right: 10px;
             }
 
@@ -1566,6 +1572,11 @@
             background-color: #e0b302;
         }
 
+        /* Enable Scroll Snap for Testimonials */
+        .testimonials-marquee {
+            scroll-snap-type: x mandatory;
+        }
+
         .insights-track,
         .testimonials-track {
             display: flex;
@@ -1580,6 +1591,8 @@
             flex: 0 0 350px;
             min-width: 300px;
             max-width: 350px;
+            scroll-snap-align: center;
+            /* Snap cards to center */
         }
 
         /* Testimonials Section */
@@ -2479,70 +2492,86 @@
     <section id="testimonials" class="testimonials-section">
         <div class="container">
             <h2 class="section-title">Client Perspectives</h2>
-            <div class="testimonials-marquee">
-                <div class="testimonials-track">
-                    <!-- Original Cards -->
-                    <div class="testimonial-card">
-                        <h3 class="testimonial-category">Legal & Board Advisory</h3>
-                        <p class="testimonial-text">"Layla combines strong legal judgement with deep cultural
-                            intelligence. She is a trusted advisor on complex matters requiring clarity and discretion."
-                        </p>
-                        <p class="testimonial-author">Partner<br>International Law Firm</p>
-                    </div>
-                    <div class="testimonial-card">
-                        <h3 class="testimonial-category">Sustainability & ESG</h3>
-                        <p class="testimonial-text">"Layla brings a rare balance of legal rigour, commercial awareness,
-                            and ethical judgement."</p>
-                        <p class="testimonial-author">Senior Leader<br>Global Financial Institution</p>
-                    </div>
-                    <div class="testimonial-card">
-                        <h3 class="testimonial-category">Leadership & Culture</h3>
-                        <p class="testimonial-text">"An advisor of integrity, insight, and sound judgement, particularly
-                            in sensitive or high-stakes situations."</p>
-                        <p class="testimonial-author">Board-Level Client</p>
-                    </div>
-                    <div class="testimonial-card">
-                        <h3 class="testimonial-category">Mentorship & Supervision</h3>
-                        <p class="testimonial-text">"As a junior associate working with her I always felt supported and
-                            appreciated. She communicates her expectations clearly and brings warmth, clarity and
-                            creativity to everything she does."</p>
-                        <p class="testimonial-author">Lawyer<br>International law firm</p>
-                    </div>
-                    <div class="testimonial-card">
-                        <h3 class="testimonial-category">Values Driven</h3>
-                        <p class="testimonial-text">"A person of immense courage, integrity and care for others who
-                            makes an impact professionally and personally."</p>
-                        <p class="testimonial-author">Risk Manager & Coach<br>Multinational company</p>
-                    </div>
-                    <div class="testimonial-card">
-                        <h3 class="testimonial-category">Thought Leader</h3>
-                        <p class="testimonial-text">"She is someone who can zoom out as a thought leader and also has a
-                            creative gift as a storyteller. I have seen her use these skills across cultures and
-                            settings to get the best out of participants."</p>
-                        <p class="testimonial-author">Leadership Professional & Novelist</p>
-                    </div>
-                    <div class="testimonial-card">
-                        <h3 class="testimonial-category">Commercial Advisor</h3>
-                        <p class="testimonial-text">"Layla stands out from the crowd. Her ability to deliver value added
-                            legal counsel is balanced with an astute commercial awareness making her an ideal business
-                            partner."</p>
-                        <p class="testimonial-author">Senior Banker<br>Global Financial Institution</p>
-                    </div>
-                    <div class="testimonial-card">
-                        <h3 class="testimonial-category">Cultural Intelligence</h3>
-                        <p class="testimonial-text">“Highly recommended for those seeking to navigate the MENA and GCC
-                            markets with cultural intelligence and confidence for inclusive workplaces and sustainable
-                            business growth.”</p>
-                        <p class="testimonial-author">Partner<br>International Law Firm</p>
-                    </div>
-                    <div class="testimonial-card">
-                        <h3 class="testimonial-category">Events & Moderating</h3>
-                        <p class="testimonial-text">“An exceptional speaker and moderator bringing rare depth to complex
-                            topics. She elevates every panel and keynote as an invaluable asset to any event.”</p>
-                        <p class="testimonial-author">Head of Marketing & BD</p>
-                    </div>
+            <div class="testimonials-wrapper" style="position: relative;">
+                <button class="scroll-btn left-btn" onclick="scrollGallery('testimonialsMarquee', 'left')"><i
+                        class="fas fa-chevron-left"></i></button>
+                <div class="testimonials-marquee" id="testimonialsMarquee">
+                    <div class="testimonials-track">
+                        <!-- Original Cards -->
+                        <div class="testimonial-card">
+                            <h3 class="testimonial-category">Legal & Board Advisory</h3>
+                            <p class="testimonial-text">"Layla combines strong legal judgement with deep cultural
+                                intelligence. She is a trusted advisor on complex matters requiring clarity and
+                                discretion."
+                            </p>
+                            <p class="testimonial-author">Partner<br>International Law Firm</p>
+                        </div>
+                        <div class="testimonial-card">
+                            <h3 class="testimonial-category">Sustainability & ESG</h3>
+                            <p class="testimonial-text">"Layla brings a rare balance of legal rigour, commercial
+                                awareness,
+                                and ethical judgement."</p>
+                            <p class="testimonial-author">Senior Leader<br>Global Financial Institution</p>
+                        </div>
+                        <div class="testimonial-card">
+                            <h3 class="testimonial-category">Leadership & Culture</h3>
+                            <p class="testimonial-text">"An advisor of integrity, insight, and sound judgement,
+                                particularly
+                                in sensitive or high-stakes situations."</p>
+                            <p class="testimonial-author">Board-Level Client</p>
+                        </div>
+                        <div class="testimonial-card">
+                            <h3 class="testimonial-category">Mentorship & Supervision</h3>
+                            <p class="testimonial-text">"As a junior associate working with her I always felt supported
+                                and
+                                appreciated. She communicates her expectations clearly and brings warmth, clarity and
+                                creativity to everything she does."</p>
+                            <p class="testimonial-author">Lawyer<br>International law firm</p>
+                        </div>
+                        <div class="testimonial-card">
+                            <h3 class="testimonial-category">Values Driven</h3>
+                            <p class="testimonial-text">"A person of immense courage, integrity and care for others who
+                                makes an impact professionally and personally."</p>
+                            <p class="testimonial-author">Risk Manager & Coach<br>Multinational company</p>
+                        </div>
+                        <div class="testimonial-card">
+                            <h3 class="testimonial-category">Thought Leader</h3>
+                            <p class="testimonial-text">"She is someone who can zoom out as a thought leader and also
+                                has a
+                                creative gift as a storyteller. I have seen her use these skills across cultures and
+                                settings to get the best out of participants."</p>
+                            <p class="testimonial-author">Leadership Professional & Novelist</p>
+                        </div>
+                        <div class="testimonial-card">
+                            <h3 class="testimonial-category">Commercial Advisor</h3>
+                            <p class="testimonial-text">"Layla stands out from the crowd. Her ability to deliver value
+                                added
+                                legal counsel is balanced with an astute commercial awareness making her an ideal
+                                business
+                                partner."</p>
+                            <p class="testimonial-author">Senior Banker<br>Global Financial Institution</p>
+                        </div>
+                        <div class="testimonial-card">
+                            <h3 class="testimonial-category">Cultural Intelligence</h3>
+                            <p class="testimonial-text">“Highly recommended for those seeking to navigate the MENA and
+                                GCC
+                                markets with cultural intelligence and confidence for inclusive workplaces and
+                                sustainable
+                                business growth.”</p>
+                            <p class="testimonial-author">Partner<br>International Law Firm</p>
+                        </div>
+                        <div class="testimonial-card">
+                            <h3 class="testimonial-category">Events & Moderating</h3>
+                            <p class="testimonial-text">“An exceptional speaker and moderator bringing rare depth to
+                                complex
+                                topics. She elevates every panel and keynote as an invaluable asset to any event.”</p>
+                            <p class="testimonial-author">Head of Marketing & BD</p>
+                        </div>
 
+                    </div>
                 </div>
+                <button class="scroll-btn right-btn" onclick="scrollGallery('testimonialsMarquee', 'right')"><i
+                        class="fas fa-chevron-right"></i></button>
             </div>
         </div>
     </section>
