@@ -1037,40 +1037,44 @@
                 /* Slightly reduce height container on mobile */
             }
 
-            .about-carousel-wrapper .scroll-btn {
-                position: absolute;
-                top: 50%;
-                transform: translateY(-50%);
-                z-index: 20;
-                background: rgba(255, 255, 255, 0.5);
-                /* Semi-transparent background for visibility */
-                border-radius: 50%;
-            }
-
-            .about-carousel-wrapper .left-btn {
-                left: 10px;
-            }
-
-            .about-carousel-wrapper .right-btn {
-                right: 10px;
-            }
-
+            .about-carousel-wrapper .scroll-btn,
             .thought-leadership-section .scroll-btn {
                 position: absolute;
                 top: 50%;
                 transform: translateY(-50%);
                 z-index: 20;
-                background: rgba(255, 255, 255, 0.5);
+                background: rgba(255, 255, 255, 0.8);
+                /* Higher opacity for better contrast */
                 border-radius: 50%;
+                color: var(--primary) !important;
+                /* Enforce primary color */
+                border: 1px solid var(--primary);
+                /* Optional: nice border */
             }
 
+            /* Prevent jumping on hover/click */
+            .about-carousel-wrapper .scroll-btn:hover,
+            .about-carousel-wrapper .scroll-btn:active,
+            .about-carousel-wrapper .scroll-btn:focus,
+            .thought-leadership-section .scroll-btn:hover,
+            .thought-leadership-section .scroll-btn:active,
+            .thought-leadership-section .scroll-btn:focus {
+                transform: translateY(-50%) scale(1.1);
+                /* PRESERVE positioning */
+                background: #ffffff;
+            }
+
+            .about-carousel-wrapper .left-btn,
             .thought-leadership-section .left-btn {
                 left: 10px;
             }
 
+            .about-carousel-wrapper .right-btn,
             .thought-leadership-section .right-btn {
                 right: 10px;
             }
+
+
         }
 
 
