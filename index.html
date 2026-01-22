@@ -1005,6 +1005,34 @@
             display: none;
         }
 
+        /* Mobile Adjustments for Carousel */
+        @media (max-width: 768px) {
+
+            .carousel-img,
+            .carousel-img.active {
+                width: 90%;
+                /* Make image larger on mobile */
+                height: auto;
+                /* Allow height to adjust naturally */
+                max-height: 100%;
+                top: 50%;
+                transform: translate(-50%, -50%) !important;
+                /* Center and override scale */
+            }
+
+            .carousel-img.prev,
+            .carousel-img.next {
+                opacity: 0;
+                /* Hide side images */
+                pointer-events: none;
+            }
+
+            .carousel-container {
+                height: 350px;
+                /* Slightly reduce height container on mobile */
+            }
+        }
+
 
 
         .about-carousel-wrapper .scroll-btn {
