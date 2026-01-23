@@ -154,36 +154,97 @@
             height: 100vh;
             background-color: var(--white);
             z-index: 999;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
             transform: translateY(-100%);
             transition: transform 0.5s ease;
+            overflow: hidden;
         }
 
         .mobile-nav.active {
             transform: translateY(0);
         }
 
+        .mobile-menu-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .mobile-menu-level-1,
+        .mobile-menu-level-2 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.4s ease;
+            background-color: var(--white);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .mobile-menu-level-2 {
+            transform: translateX(100%);
+            z-index: 2;
+        }
+
+        /* Sliding classes */
+        .mobile-nav.sub-menu-active .mobile-menu-level-1 {
+            transform: translateX(-30%);
+            /* Slight parallax or move out */
+            opacity: 0;
+        }
+
+        .mobile-nav.sub-menu-active .mobile-menu-level-2 {
+            transform: translateX(0);
+        }
+
         .mobile-nav ul {
             list-style: none;
             text-align: center;
+            padding: 0;
+            margin: 0;
         }
 
         .mobile-nav li {
             margin: 20px 0;
         }
 
-        .mobile-nav a {
+        .mobile-nav a,
+        .mobile-dropdown-trigger {
             text-decoration: none;
             color: var(--dark-blue);
             font-size: 1.5rem;
             font-weight: 600;
             transition: color 0.3s;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-family: inherit;
         }
 
-        .mobile-nav a:hover {
+        .back-menu-btn {
+            position: absolute;
+            top: 30px;
+            left: 20px;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px;
+        }
+
+        .mobile-nav a:hover,
+        .mobile-dropdown-trigger:hover,
+        .back-menu-btn:hover {
             color: var(--dark-green);
         }
 
@@ -1005,38 +1066,32 @@
             display: none;
         }
 
-        /* Mobile Adjustments for Carousel */
+        /* Mobile Adjustments for Carousel and Arrows */
         @media (max-width: 768px) {
 
             .carousel-img,
             .carousel-img.active {
-                width: 100%;
-                /* Full width of container */
+                width: calc(100% - 90px);
+                /* Leave space for arrows (45px each side) */
                 height: 100%;
-                /* Full height of container */
                 object-fit: contain;
-                /* Ensure entire image is visible */
                 top: 50%;
                 transform: translate(-50%, -50%) !important;
-                /* Center and override scale */
                 background-color: transparent;
-                /* Remove white background if image is smaller */
                 box-shadow: none;
-                /* Remove glow effect */
             }
 
             .carousel-img.prev,
             .carousel-img.next {
                 opacity: 0;
-                /* Hide side images */
                 pointer-events: none;
             }
 
             .carousel-container {
                 height: 350px;
-                /* Slightly reduce height container on mobile */
             }
 
+            /* Scroll Buttons Styling */
             .about-carousel-wrapper .scroll-btn,
             .thought-leadership-section .scroll-btn,
             .testimonials-wrapper .scroll-btn {
@@ -1044,13 +1099,17 @@
                 top: 50%;
                 transform: translateY(-50%);
                 z-index: 20;
-                background: rgba(255, 255, 255, 0.8);
-                /* Higher opacity for better contrast */
+                background: rgba(255, 255, 255, 0.9);
                 border-radius: 50%;
                 color: var(--primary) !important;
-                /* Enforce primary color */
                 border: 1px solid var(--primary);
-                /* Optional: nice border */
+                width: 35px;
+                /* Fixed small size */
+                height: 35px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 14px;
             }
 
             /* Prevent jumping on hover/click */
@@ -1063,24 +1122,31 @@
             .testimonials-wrapper .scroll-btn:hover,
             .testimonials-wrapper .scroll-btn:active,
             .testimonials-wrapper .scroll-btn:focus {
-                transform: translateY(-50%) scale(1.1);
-                /* PRESERVE positioning */
+                transform: translateY(-50%) scale(1.05);
+                /* Minimal scale */
                 background: #ffffff;
             }
 
             .about-carousel-wrapper .left-btn,
             .thought-leadership-section .left-btn,
             .testimonials-wrapper .left-btn {
-                left: 10px;
+                left: 0;
+                /* Align to edge */
             }
 
             .about-carousel-wrapper .right-btn,
             .thought-leadership-section .right-btn,
             .testimonials-wrapper .right-btn {
-                right: 10px;
+                right: 0;
+                /* Align to edge */
             }
 
-
+            /* Add padding to scroll containers so arrows don't cover content */
+            .thought-leadership-grid,
+            .testimonials-marquee {
+                padding-left: 40px;
+                padding-right: 40px;
+            }
         }
 
 
@@ -2050,15 +2116,28 @@
     </header>
 
     <!-- Mobile Navigation -->
+    <!-- Mobile Navigation -->
     <nav class="mobile-nav">
         <button class="close-menu"><i class="fas fa-times"></i></button>
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#insights">Insights</a></li>
-            <li><a href="#testimonials">Testimonials</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
+        <div class="mobile-menu-container">
+            <ul class="mobile-menu-level-1">
+                <li><a href="#home" class="mobile-link">Home</a></li>
+                <li><a href="#" class="mobile-dropdown-trigger">About <i class="fas fa-chevron-right"
+                            style="margin-left: 8px;"></i></a></li>
+                <li><a href="#insights" class="mobile-link">Insights</a></li>
+                <li><a href="#testimonials" class="mobile-link">Testimonials</a></li>
+                <li><a href="#contact" class="mobile-link">Contact</a></li>
+            </ul>
+            <div class="mobile-menu-level-2">
+                <button class="back-menu-btn"><i class="fas fa-chevron-left"></i> Back</button>
+                <ul>
+                    <li><a href="#about" class="mobile-link">About Us</a></li>
+                    <li><a href="#team" class="mobile-link">Team</a></li>
+                    <li><a href="#how-we-work" class="mobile-link">How We Work</a></li>
+                    <li><a href="#services" class="mobile-link">Services</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
     <!-- Hero Section -->
@@ -2744,23 +2823,47 @@
         const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
         const mobileNav = document.querySelector('.mobile-nav');
         const closeMenuBtn = document.querySelector('.close-menu');
+        const subMenuTrigger = document.querySelector('.mobile-dropdown-trigger');
+        const backMenuBtn = document.querySelector('.back-menu-btn');
+
+        function resetMobileMenu() {
+            mobileNav.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            // Reset to level 1 after transition
+            setTimeout(() => {
+                mobileNav.classList.remove('sub-menu-active');
+            }, 500);
+        }
 
         mobileMenuBtn.addEventListener('click', function () {
+            mobileNav.classList.remove('sub-menu-active'); // Ensure starts at root
             mobileNav.classList.add('active');
             document.body.style.overflow = 'hidden';
         });
 
         closeMenuBtn.addEventListener('click', function () {
-            mobileNav.classList.remove('active');
-            document.body.style.overflow = 'auto';
+            resetMobileMenu();
         });
 
+        // Sub-menu interactions
+        if (subMenuTrigger) {
+            subMenuTrigger.addEventListener('click', function (e) {
+                e.preventDefault();
+                mobileNav.classList.add('sub-menu-active');
+            });
+        }
+
+        if (backMenuBtn) {
+            backMenuBtn.addEventListener('click', function () {
+                mobileNav.classList.remove('sub-menu-active');
+            });
+        }
+
         // Close mobile menu when clicking on a link
-        const mobileNavLinks = document.querySelectorAll('.mobile-nav a');
+        const mobileNavLinks = document.querySelectorAll('.mobile-link');
         mobileNavLinks.forEach(link => {
             link.addEventListener('click', function () {
-                mobileNav.classList.remove('active');
-                document.body.style.overflow = 'auto';
+                resetMobileMenu();
             });
         });
 
