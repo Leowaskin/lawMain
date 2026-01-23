@@ -1099,13 +1099,11 @@
                 position: absolute;
                 top: 50%;
                 transform: translateY(-50%);
-                z-index: 20;
+                z-index: 100;
+                /* Increased z-index to be safe */
                 background: transparent;
-                /* Remove white background */
                 box-shadow: none;
-                /* Ensure no shadow */
                 border: none;
-                /* Remove border */
                 border-radius: 0;
                 color: var(--primary) !important;
                 width: 40px;
@@ -1113,8 +1111,12 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                font-size: 24px;
-                /* Larger icon */
+                font-size: 28px;
+                /* Slightly larger */
+                font-weight: 900;
+                /* Ensure extra bold */
+                -webkit-text-stroke: 1px var(--primary);
+                /* Simulate boldness */
                 padding: 0;
             }
 
